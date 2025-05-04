@@ -1,1 +1,1 @@
-<img title="a title" alt="Alt text" src="./assets/Screenshot 2025-04-27 105147.png">
+<img title="a title" alt="Alt text" src="./Frontend/assets/Screenshot 2025-04-27 105147.png">
