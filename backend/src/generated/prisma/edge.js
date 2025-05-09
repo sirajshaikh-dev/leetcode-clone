@@ -164,12 +164,11 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgres://leetlab:leet1234@localhost:5432/Leetlab?schema=public"
       }
     }
   },
