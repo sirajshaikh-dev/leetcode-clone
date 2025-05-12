@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { db } from '../lib/db.js';
 import { UserRole } from '../generated/prisma/index.js';
@@ -36,8 +36,29 @@ export const register = async (req, res) => {
             {expiresIn:'7d'}
         )
 
+        res.cookie('jwt',token,{
+            httpOnly:true,
+            secure:process.env.NODE_ENV !== 'development',
+            sameSite:'strict',
+            maxAge:1000 * 60 * 60 * 24 * 7  // 7 days
+        })
+
+        res.status(201).json({
+            success:true,
+            message:'User created successfully',
+            user:{
+                id:newUser.id,
+                email:newUser.email,
+                name:newUser.name,
+                role:newUser.role,
+                image: newUser.image,
+                }
+            })   
     } catch (error) {
-        
+        console.log('Error creating user',error)
+        res.status(500).json({
+            error:'Error creating user'
+        })
     }
     
 }

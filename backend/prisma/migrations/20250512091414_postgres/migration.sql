@@ -7,7 +7,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "email" TEXT NOT NULL,
     "image" TEXT,
-    "role" "UserRole" NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'USER',
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
