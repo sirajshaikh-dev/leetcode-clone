@@ -13,7 +13,7 @@ export const createProblem= async (req,res)=>{
     }
     // loop through each refrence solution for different languages.
     try {
-        for (const [language, solutionCode] of object.entries(referenceSolutions)) {
+        for (const [language, solutionCode] of Object.entries(referenceSolutions)) {
             const languageId = getJudge0LanguageId(language)
         
             if(!languageId){
@@ -22,7 +22,7 @@ export const createProblem= async (req,res)=>{
                 })
             }
             
-            const submissions= testcases.map(( input,output )=>({
+            const submissions= testcases.map(({ input,output })=>({
                 source_code: solutionCode,
                 language_id: languageId,
                 stdin:input,
@@ -37,7 +37,7 @@ export const createProblem= async (req,res)=>{
 
             for(let i=0; i<results.length; i++){
                 const result = results[i]
-                if(result.status.id !== 3){
+                if(result.status.id !== 3){  // 3 means success
                     return res.status(400).json({
                         error: `Test case ${i+1} failed for language ${language}`
                     })
@@ -59,11 +59,18 @@ export const createProblem= async (req,res)=>{
                 }
             })
 
-            return res.status(201).json(newProblem)
+            return res.status(201).json({
+                sucess: true,
+                message: "Message Created Successfully",
+                problem: newProblem,
+            })
         }
 
     } catch (error) {
-        
+         console.log(error);
+        return res.status(500).json({
+        error: "Error While Creating Problem",
+        });
     }
 }
 
